@@ -1,0 +1,57 @@
+name: CI check
+
+on:
+  push:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: CI check
+    runs-on: ubuntu-latest
+    env:
+      CACHE_KEY: 'ci'
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.0
+      
+      - name: Use Node.js
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version-file: '.nvmrc'
+      
+      - name: Check if node modules are cached
+        uses: actions/cache@v3.0.0
+        with:
+          path: ./node_modules
+          key: ${{ env.CACHE_KEY }}-node-modules-${{ hashFiles('**/yarn.lock') }}
+          # each workflow has its own isolated environment and they don't share cache with each other, so the key should be unique for the workflow to work properly
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Run format
+        run: yarn format:check
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Run linters
+        run: yarn lint
+
+      - name: Run build
+        run: yarn build
+
+      - name: Run Trivy fs scanner
+        uses: aquasecurity/trivy-action@0.19.0
+        with:
+          scan-type: 'fs'
+          scan-ref: 'dist'
+          scanners: 'vuln,secret,config'
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH'
+          vuln-type: 'os,library'
