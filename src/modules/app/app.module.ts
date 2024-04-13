@@ -6,12 +6,12 @@ import { ConfigModule } from '@nestjs/config'
 import { AcceptLanguageResolver, I18nModule } from 'nestjs-i18n'
 import path from 'node:path'
 import { getConfig, envValidation } from 'lib/config'
-import { ExampleModule } from 'modules/example';
+import { ExampleModule } from 'modules/example'
 import { AppService } from './app.service'
 
 @Module({
     imports: [
-            ConfigModule.forRoot({
+        ConfigModule.forRoot({
             isGlobal: true,
             validate: envValidation,
             validationOptions: {
