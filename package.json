@@ -30,10 +30,10 @@
         "migration:revert": "yarn typeorm -d src/database/typeorm.data-source.ts migration:revert"
     },
     "dependencies": {
-        "@nestjs/common": "10.3.8",
+        "@nestjs/common": "10.3.9",
         "@nestjs/config": "3.2.2",
-        "@nestjs/core": "10.3.8",
-        "@nestjs/platform-express": "10.3.8",
+        "@nestjs/core": "10.3.9",
+        "@nestjs/platform-express": "10.3.9",
         "@nestjs/swagger": "7.3.1",
         "@nestjs/terminus": "10.2.3",
         "@nestjs/throttler": "5.1.2",
@@ -43,9 +43,9 @@
         "date-fns": "3.6.0",
         "helmet": "7.1.0",
         "morgan": "1.10.0",
-        "mysql2": "3.9.8",
+        "mysql2": "3.10.0",
         "nestjs-i18n": "10.4.5",
-        "ramda": "0.30.0",
+        "ramda": "0.30.1",
         "reflect-metadata": "0.2.2",
         "rxjs": "7.8.1",
         "typeorm": "0.3.20"
