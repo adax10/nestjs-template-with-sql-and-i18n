@@ -50,6 +50,9 @@
         "rxjs": "7.8.1",
         "typeorm": "0.3.20"
     },
+    "resolutions": {
+        "cross-spawn": "7.0.5"
+    },
     "devDependencies": {
         "@commitlint/cli": "19.7.1",
         "@commitlint/config-conventional": "19.7.1",
