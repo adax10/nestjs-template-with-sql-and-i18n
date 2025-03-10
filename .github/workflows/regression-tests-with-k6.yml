@@ -114,7 +114,7 @@ jobs:
         if: ${{ always() && env.ENVIRONMENT == 'local' }}
         env:
           NODE_VERSION: ${{ steps.node-version.outputs.version }}
-        run: docker compose -f test-k6/docker-compose-tests-k6.yaml down
+        run: docker compose -f test-k6/docker-compose-tests-k6.yaml --env-file test-k6/.env.tests-k6 down
 
       - name: Prepare PR message
         if: ${{ always() && github.event_name == 'pull_request' }}
