@@ -37,5 +37,5 @@ const clearBodyObject = (object: Record<any, any>): Record<any, any> =>
             }
 
             return [key, toReadableLog(value)]
-        })
+        }),
     )
