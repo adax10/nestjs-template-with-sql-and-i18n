@@ -42,12 +42,12 @@
     "date-fns": "4.1.0",
     "helmet": "8.0.0",
     "morgan": "1.10.0",
-    "mysql2": "3.12.0",
+    "mysql2": "3.13.0",
     "nestjs-i18n": "10.5.0",
     "ramda": "0.30.1",
     "reflect-metadata": "0.2.2",
     "rxjs": "7.8.2",
-    "typeorm": "0.3.20"
+    "typeorm": "0.3.21"
   },
   "devDependencies": {
     "@commitlint/cli": "19.8.0",
