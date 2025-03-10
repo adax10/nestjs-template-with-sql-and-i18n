@@ -1,13 +1,13 @@
-import { fromPairs, toPairs, is } from 'ramda'
 import morgan from 'morgan'
-import { hasBody } from '../utils'
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
+import { R, hasBody } from '../utils'
+
+/* eslint-disable 
+    @typescript-eslint/no-unsafe-argument,
+    @typescript-eslint/strict-boolean-expressions 
+*/
 
 morgan.token('request-info', req => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error this is expected
     const { body, query, method } = req
 
     if (!method) {
@@ -23,16 +23,16 @@ morgan.token('request-info', req => {
     return `B[${JSON.stringify(bodyShortened)}]`
 })
 
-const toReadableLog = (value: any) => (value && is(String, value) ? value.slice(0, 100) : value)
+const toReadableLog = (value: unknown) => (value && R.is(String, value) ? value.slice(0, 100) : value)
 
-const clearBodyObject = (object: Record<any, any>): Record<any, any> =>
-    fromPairs<any, any>(
-        toPairs<Record<any, any>>(object).map(([key, value]) => {
+const clearBodyObject = (object: Record<string, unknown>): Record<string, unknown> =>
+    R.fromPairs<string, unknown>(
+        R.toPairs<Record<string, unknown>>(object).map(([key, value]) => {
             if (key.toLowerCase().includes('password') || key.toLowerCase().includes('passwd')) {
                 return [key, '********']
             }
 
-            if (is(Object, value)) {
+            if (R.is(Object, value)) {
                 return [key, clearBodyObject(value)]
             }
 
