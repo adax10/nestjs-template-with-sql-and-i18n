@@ -19,8 +19,8 @@ const bootstrap = async () => {
     app.use(
         helmet({
             noSniff: true,
-            hidePoweredBy: true
-        })
+            hidePoweredBy: true,
+        }),
     )
 
     app.enableCors(corsConfig)

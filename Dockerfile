@@ -1,6 +1,6 @@
 ARG NODE_VERSION
 
-FROM node:${NODE_VERSION}-alpine as build
+FROM node:${NODE_VERSION}-alpine AS build
 
 WORKDIR /usr/src/app
 COPY --chown=node:node package.json yarn.lock ./

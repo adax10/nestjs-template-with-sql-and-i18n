@@ -11,5 +11,5 @@ export enum DatabaseTypes {
     Decimal = 'decimal',
     Geometry = 'geometry',
     Char = 'char',
-    Enum = 'enum'
+    Enum = 'enum',
 }

@@ -28,9 +28,9 @@ export class HealthCheckController {
                 app: {
                     status: 'up',
                     build: this.build,
-                    date: this.date
-                }
-            })
+                    date: this.date,
+                },
+            }),
         ])
     }
 }

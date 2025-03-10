@@ -25,6 +25,6 @@ export const typeORMConfig = (configEnvs: EnvironmentVariables): TypeOrmModuleOp
     bigNumberStrings: false,
     charset: 'utf8mb4_general_ci',
     extra: {
-        connectionLimit: 2
-    }
+        connectionLimit: 2,
+    },
 })

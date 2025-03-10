@@ -16,36 +16,36 @@ import { AppService } from './app.service'
             validate: envValidation,
             validationOptions: {
                 allowUnknown: true,
-                abortEarly: true
-            }
+                abortEarly: true,
+            },
         }),
         TypeOrmModule.forRootAsync({
-            useFactory: async () => getConfig().typeORMConfig
+            useFactory: async () => getConfig().typeORMConfig,
         }),
         ThrottlerModule.forRoot({
             throttlers: [
                 {
                     ttl: seconds(getConfig().basicConfig.throttlerConfig.ttlS),
-                    limit: getConfig().basicConfig.throttlerConfig.limit
-                }
-            ]
+                    limit: getConfig().basicConfig.throttlerConfig.limit,
+                },
+            ],
         }),
         I18nModule.forRoot({
             fallbackLanguage: 'en',
             loaderOptions: {
                 path: path.join(__dirname, './../../i18n/'),
-                watch: true
+                watch: true,
             },
-            resolvers: [AcceptLanguageResolver]
+            resolvers: [AcceptLanguageResolver],
         }),
-        ExampleModule
+        ExampleModule,
     ],
     providers: [
         AppService,
         {
             provide: APP_GUARD,
-            useClass: ThrottlerGuard
-        }
-    ]
+            useClass: ThrottlerGuard,
+        },
+    ],
 })
 export class AppModule {}

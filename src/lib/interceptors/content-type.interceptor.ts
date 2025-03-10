@@ -6,7 +6,7 @@ export class ContentTypeInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler) {
         const request = context.switchToHttp().getRequest<Request>()
 
-        if (hasBody(request.method) && !request.is('json')) {
+        if (hasBody(request.method) && request.is('json') === false) {
             throw new UnsupportedMediaTypeException()
         }
 
