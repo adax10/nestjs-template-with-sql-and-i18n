@@ -1,7 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
-import { EnvironmentVariables } from 'lib/config'
-import { toBoolean } from 'lib/utils'
-import { TimeIntervalMs } from 'lib/enum'
+import { EnvironmentVariables, toBoolean } from 'lib/config'
+import { TimeIntervalMs } from 'lib/enums'
 // uncomment after adding migration
 // import * as Migrations from './migrations';
 import * as Entities from './entities'
