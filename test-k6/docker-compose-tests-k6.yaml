@@ -19,7 +19,7 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
-      - '${TYPEORM_PORT}:${TYPEORM_PORT}'
+      - ${TYPEORM_PORT}:${TYPEORM_PORT}
     environment:
       MYSQL_TCP_PORT: ${TYPEORM_PORT}
       MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
