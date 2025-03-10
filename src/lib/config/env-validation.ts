@@ -4,11 +4,11 @@ import { EnvironmentVariables } from './environment.variables'
 
 export const envValidation = (config: Record<string, unknown>) => {
     const validatedConfig = plainToInstance(EnvironmentVariables, config, {
-        enableImplicitConversion: true
+        enableImplicitConversion: true,
     })
 
     const errors = validateSync(validatedConfig, {
-        skipMissingProperties: false
+        skipMissingProperties: false,
     })
 
     if (errors.length > 0) {

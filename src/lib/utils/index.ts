@@ -1,3 +1,4 @@
-export * as R from 'ramda'
-export { toBoolean } from './to-boolean'
+import * as R from './ramda'
+
+export { R }
 export { hasBody } from './request'
