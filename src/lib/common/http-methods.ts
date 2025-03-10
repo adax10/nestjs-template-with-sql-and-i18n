@@ -5,4 +5,5 @@ export enum HttpMethods {
     PATCH = 'PATCH',
     DELETE = 'DELETE',
     OPTIONS = 'OPTIONS',
+    HEAD = 'HEAD',
 }

@@ -1,21 +1,18 @@
-import { EnvironmentVariables } from './environment.variables'
-import { toBoolean } from 'lib/utils'
 import { HttpMethods } from 'lib/common'
+import { EnvironmentVariables } from './environment.variables'
+import { toBoolean } from './utils'
 
 export const basicConfig = (configEnvs: EnvironmentVariables) => ({
     expressConfig: {
         port: configEnvs.API_PORT,
         host: configEnvs.API_HOST,
         useLogs: toBoolean(configEnvs.USE_LOGS),
-        logFormat: ':remote-addr - :remote-user [:date[web]] ":method :url HTTP/:http-version" :status - :response-time ms',
+        logFormat: '[:status] ":method :url HTTP/:http-version" :request-info - :remote-user :remote-addr [:date[web]] - :response-time ms',
     },
     corsConfig: {
         origin: configEnvs.CORS_ALLOWED_ORIGINS,
-        methods: [HttpMethods.PUT, HttpMethods.GET, HttpMethods.PATCH, HttpMethods.POST, HttpMethods.OPTIONS],
-    },
-    throttlerConfig: {
-        ttlS: configEnvs.THROTTLER_TTL_S,
-        limit: configEnvs.THROTTLER_LIMIT,
+        methods: [HttpMethods.GET, HttpMethods.POST, HttpMethods.HEAD, HttpMethods.OPTIONS],
+        credentials: true,
     },
     bodyParserConfig: {
         limit: configEnvs.MAX_FILE_SIZE_KB,

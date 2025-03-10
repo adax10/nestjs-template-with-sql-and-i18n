@@ -1,6 +1,6 @@
 import { IsBooleanString, IsInt, IsNumber, IsOptional, IsPositive, IsString, ValidateIf } from 'class-validator'
 import { Type } from 'class-transformer'
-import { toBoolean } from 'lib/utils'
+import { toBoolean } from './utils'
 
 export class EnvironmentVariables {
     @IsOptional()
@@ -12,7 +12,7 @@ export class EnvironmentVariables {
 
     @IsOptional()
     @IsString()
-    readonly API_HOST: string = 'localhost'
+    readonly API_HOST: string = '0.0.0.0'
 
     @IsOptional()
     @IsString()
@@ -21,14 +21,6 @@ export class EnvironmentVariables {
     @IsOptional()
     @IsString()
     readonly SERVICE_VERSION: string = 'unknown'
-
-    @IsOptional()
-    @IsInt()
-    readonly THROTTLER_TTL_S: number = 60
-
-    @IsOptional()
-    @IsInt()
-    readonly THROTTLER_LIMIT: number = 100
 
     @IsOptional()
     @IsInt()
