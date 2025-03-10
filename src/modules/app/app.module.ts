@@ -5,6 +5,7 @@ import { AcceptLanguageResolver, I18nModule } from 'nestjs-i18n'
 import path from 'node:path'
 import { getConfig, envValidation } from 'lib/config'
 import { ExampleModule } from 'modules/example'
+import { HealthCheckModule } from 'modules/health-check'
 import { AppService } from './app.service'
 
 @Module({
@@ -28,6 +29,7 @@ import { AppService } from './app.service'
             },
             resolvers: [AcceptLanguageResolver],
         }),
+        HealthCheckModule,
         ExampleModule,
     ],
     providers: [AppService],
