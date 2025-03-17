@@ -1,4 +1,4 @@
-name: Update .nvmrc to latest LTS
+name: Update .nvmrc to latest LTS version
 
 on:
   schedule:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   update-nvmrc:
-    name: Update .nvmrc
+    name: Update .nvmrc file
     timeout-minutes: 5
     runs-on: ubuntu-latest
     permissions:
@@ -22,24 +22,37 @@ jobs:
       - name: Fetch latest Node.js LTS version
         id: node-version
         run: |
-          LATEST_LTS=$(curl -s https://nodejs.org/dist/index.json | jq -r '[.[] | select(.lts != false)][0].version')
-          echo "latest_lts=${LATEST_LTS}" >> $GITHUB_OUTPUT
+          NODE_VERSION=$(curl -s https://nodejs.org/dist/index.json | jq -r '[.[] | select(.lts != false)][0].version')
+          echo "node_version=${NODE_VERSION}" >> $GITHUB_OUTPUT
 
       - name: Update .nvmrc
-        run: echo "${{ steps.node-version.outputs.latest_lts }}" > .nvmrc
+        run: echo "${{ steps.node-version.outputs.node_version }}" > .nvmrc
 
       - name: Prepare branch name
         id: branch-name
         run: |
-          BRANCH_NAME="update-nvmrc-${{ steps.node-version.outputs.latest_lts }}"
+          BRANCH_NAME="update-nvmrc-${{ steps.node_version.outputs.latest_lts }}"
           echo "branch_name=${BRANCH_NAME}" >>$GITHUB_OUTPUT
+
+      - name: Check if branch already exists
+        id: check-branch
+        shell: bash
+        run: |
+          if git ls-remote --exit-code --heads origin "${{ steps.branch-name.outputs.branch_name }}"; then
+            echo "Branch ${{ steps.branch-name.outputs.branch_name }} already exists. Skipping branch creation."
+            echo "branch_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "branch_exists=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Commit and push changes
         id: commit-changes
+        if: ${{ steps.check-branch.outputs.branch_exists == 'false' }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b ${{ steps.branch-name.outputs.branch_name }}
+
           if ! git diff --exit-code .nvmrc; then
             echo "nvmrc_changed=true" >> $GITHUB_OUTPUT
             git add .nvmrc
@@ -51,7 +64,7 @@ jobs:
           fi
 
       - name: Create Pull Request
-        if: steps.commit-changes.outputs.nvmrc_changed == 'true'
+        if: ${{ steps.commit-changes.outputs.nvmrc_changed == 'true' }}
         run: |
           gh pr create \
             -B main \
