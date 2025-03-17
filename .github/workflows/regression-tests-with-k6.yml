@@ -128,10 +128,10 @@ jobs:
 
       - name: Set PR comments
         if: always() && github.event_name == 'pull_request' && !cancelled()
-        uses: thollander/actions-comment-pull-request@v3.0.1
-        with:
-          message: ${{ steps.pr_message.outputs.message }}
-          github-token: ${{ secrets.GITHUB_TOKEN  }}
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} --body "${{ steps.pr_message.outputs.message }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload artifact
         if: always() && !cancelled()
