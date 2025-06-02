@@ -23,15 +23,15 @@ jobs:
         id: node-version
         run: |
           NODE_VERSION=$(curl -s https://nodejs.org/dist/index.json | jq -r '[.[] | select(.lts != false)][0].version')
-          echo "node_version=${NODE_VERSION}" >> $GITHUB_OUTPUT
+          echo "version=${NODE_VERSION}" >> $GITHUB_OUTPUT
 
       - name: Update .nvmrc
-        run: echo "${{ steps.node-version.outputs.node_version }}" > .nvmrc
+        run: echo "${{ steps.node-version.outputs.version }}" > .nvmrc
 
       - name: Prepare branch name
         id: branch-name
         run: |
-          BRANCH_NAME="update-nvmrc-${{ steps.node_version.outputs.latest_lts }}"
+          BRANCH_NAME="update-nvmrc-${{ steps.node-version.outputs.version }}"
           echo "branch_name=${BRANCH_NAME}" >>$GITHUB_OUTPUT
 
       - name: Check if branch already exists
@@ -56,7 +56,7 @@ jobs:
           if ! git diff --exit-code .nvmrc; then
             echo "nvmrc_changed=true" >> $GITHUB_OUTPUT
             git add .nvmrc
-            git commit -m "build(node): update .nvmrc to Node.js ${{ steps.node-version.outputs.latest_lts }}"
+            git commit -m "build(node): update .nvmrc to Node.js ${{ steps.node-version.outputs.version }}"
             git push --set-upstream https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} $BRANCH_NAME
           else
             echo "nvmrc_changed=false" >> $GITHUB_OUTPUT
@@ -69,8 +69,8 @@ jobs:
           gh pr create \
             -B main \
             -H ${{ steps.branch-name.outputs.branch_name }} \
-            --title "build(node): update .nvmrc to Node.js ${{ steps.node-version.outputs.latest_lts  }}" \
-            --body "This PR updates the .nvmrc file to the latest Node.js LTS version: **${{ steps.node-version.outputs.LATEST_LTS  }}**." \
+            --title "build(node): update .nvmrc to Node.js ${{ steps.node-version.outputs.version  }}" \
+            --body "This PR updates the .nvmrc file to the latest Node.js LTS version: **${{ steps.node-version.outputs.version  }}**." \
             --label "dependencies"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
