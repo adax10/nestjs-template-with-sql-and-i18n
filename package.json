@@ -29,10 +29,10 @@
     "migration:revert": "yarn typeorm -d src/database/typeorm.data-source.ts migration:revert"
   },
   "dependencies": {
-    "@nestjs/common": "11.1.2",
+    "@nestjs/common": "11.1.5",
     "@nestjs/config": "4.0.2",
-    "@nestjs/core": "11.1.2",
-    "@nestjs/platform-express": "11.1.2",
+    "@nestjs/core": "11.1.5",
+    "@nestjs/platform-express": "11.1.5",
     "@nestjs/swagger": "11.2.0",
     "@nestjs/terminus": "11.0.0",
     "@nestjs/typeorm": "11.0.0",
@@ -40,13 +40,13 @@
     "class-validator": "0.14.2",
     "date-fns": "4.1.0",
     "helmet": "8.1.0",
-    "morgan": "1.10.0",
-    "mysql2": "3.14.1",
+    "morgan": "1.10.1",
+    "mysql2": "3.14.3",
     "nestjs-i18n": "10.5.1",
-    "ramda": "0.30.1",
+    "ramda": "0.31.3",
     "reflect-metadata": "0.2.2",
     "rxjs": "7.8.2",
-    "typeorm": "0.3.24"
+    "typeorm": "0.3.25"
   },
   "devDependencies": {
     "@commitlint/cli": "19.8.1",
@@ -58,7 +58,7 @@
     "@types/express": "5.0.2",
     "@types/jest": "29.5.14",
     "@types/k6": "0.57.1",
-    "@types/morgan": "1.9.9",
+    "@types/morgan": "1.9.10",
     "@types/node": "22.15.29",
     "@types/ramda": "0.30.2",
     "@types/supertest": "6.0.3",
